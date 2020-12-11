@@ -11,7 +11,7 @@
 				<p></p>
 				<input type="file" name="photo" @change = 'fileChanged'>
 				<p></p>
-				<textarea v-model="itemDesc" placeholder="ITEM DESCRIPTION"></textarea>
+				<input type='number' v-model="itemPrice" placeholder="PRICE">
 				<p></p>
 				<button @click='upload'>Upload</button>
 			</div>
@@ -20,6 +20,8 @@
 				<img :src="addItem.path" />
 			</div>
 		</div>
+
+
 
 		<div class = 'heading'>
 			<div class = 'circle'>2</div>
@@ -39,7 +41,7 @@
 			<div class='upload' v-if="findItem">
 				<input v-model="findItem.title">
 				<p></p>
-				<textarea v-model="findItem.description"></textarea>
+				<input type='number' v-model="findItem.price" placeholder='PRICE'>
 				<p></p>
 				<img :src="findItem.path">
 				<p></p>
@@ -136,14 +138,14 @@ button {
 
 				findTitle:'',
 				findItem: null,
-				itemDesc: '',
+				itemPrice: null,
 			}
 		},
 
 		computed:{
 			suggestions(){
-      let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
-      return items.sort((a, b) => a.title > b.title);
+				let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
+				return items.sort((a, b) => a.title > b.title);
 			}
 		},
 
@@ -153,7 +155,7 @@ button {
 
 		methods:{
 			fileChanged(event) {
-				this.file = event.target.files[0]
+				this.file = event.target.files[0];	
 			},
 			// For our button
 			async upload(){
@@ -167,7 +169,8 @@ button {
 					let r2 = await axios.post('/api/items', {
 						title: this.title,
 						path: r1.data.path,
-						description: this.itemDesc, 
+						price: this.itemPrice, 
+						quantity: 0,
 					});
 					this.addItem = r2.data;
 
@@ -202,7 +205,7 @@ button {
 				try{
 					await axios.put('/api/items/' + item._id, {
 						title: this.findItem.title,
-						description: this.findItem.description,
+						price: this.findItem.price,
 					});
 					this.findItem = null;
 					this.getItems();

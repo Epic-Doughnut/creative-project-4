@@ -1,6 +1,7 @@
 const multer = require('multer');
 const upload = multer({
-	dest:'/var/www/museum.jsgames.me/images/',
+	// dest:'/var/www/museum.jsgames.me/images/',
+	dest: '../front-end/public/images/',
 	limits:{
 		fileSize: 100000000
 	}
@@ -26,7 +27,8 @@ mongoose.connect('mongodb://localhost:27017/museum', {
 const itemSchema = new mongoose.Schema({
 	title:String,
 	path: String,
-	description: String,
+	price: Number,
+	quantity: Number,
 });
 
 // Model for items
@@ -48,7 +50,8 @@ app.post('/api/items', async (req,res) =>{
 	const item = new Item({
 		title: req.body.title,
 		path: req.body.path,
-		description: req.body.description,
+		price: req.body.price,
+		quantity: 0,
 	});
 	try{
 		await item.save();
@@ -81,7 +84,7 @@ app.delete('/api/items/:id', async (req,res) =>{
 		console.log(e);
 		res.sendStatus(500);
 	}
-})
+});
 
 app.put('/api/items/:id', async (req, res) => {
 	try{
@@ -90,13 +93,14 @@ app.put('/api/items/:id', async (req, res) => {
 		});
 		console.log("trying to change " + item.title+" to " + req.body.title);
 		item.title = req.body.title;
-		item.description = req.body.description;
+		item.price = req.body.price;
 		item.save();
 		res.sendStatus(200);
 	} catch (e) {
 		console.log(e);
 		res.sendStatus(500);
 	}
-})
+});
+
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));

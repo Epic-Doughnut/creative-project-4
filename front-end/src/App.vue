@@ -3,11 +3,11 @@
   <div class="header">
     <router-link to="/">
       <div class="logo">
-        <img src="/ordinary.png">
+        <p>{{$root.wallet}}</p>
       </div>
     </router-link>
     <div class="title">
-      <h1>Museum of Ordinary Objects</h1>
+      <h1>Spend A Billion Dollars</h1>
     </div>
   </div>
   <div class="content">
@@ -17,7 +17,7 @@
     <router-link to="/admin">Admin</router-link>
     <br>
     <hr>
-    <a href="https://github.com/BYU-CS-260-Winter-2020/lab-4-museum-of-ordinary-objects-Epic-Doughnut">GitHub</a>
+    <a href="https://github.com/Epic-Doughnut/creative-project-4">GitHub</a>
   </div>
 </div>
 </template>

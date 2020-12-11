@@ -4,7 +4,10 @@
 			<div class='image' v-for='item in items' :key='item.id'>
 				<h2>{{item.title}}</h2>
 				<img :src='item.path'>
-				<p>{{item.description}}</p>
+				<p>${{item.price}}</p>
+				<button @click='add(item)'>+</button> 
+				<input v-model=item.quantity @change = "updateWallet()">
+				<button @click='sub(item)'>-</button>
 			</div>
 		</section>
 	</div>
@@ -61,6 +64,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
+
 export default {
 	name: 'Home',
 	data(){
@@ -70,6 +74,7 @@ export default {
 	},
 	created(){
 		this.getItems();
+		this.resetQuantity();
 	},
 	methods:{
 		async getItems(){
@@ -81,6 +86,29 @@ export default {
 				console.log(error);
 			}
 		},
+		resetQuantity(){
+			this.items.forEach(item => {
+				console.log("setting quantity of item: " + item.title);
+				item.quantity = 0;
+			});
+		},
+		add(item) {
+
+			item.quantity ++;
+			this.$root.wallet -= item.price;
+		},
+		sub(item){
+			if (item.quantity == 0)
+				return;
+			item.quantity --;
+			this.$root.wallet += item.price;
+		},
+		updateWallet(){
+			this.$root.wallet = 1000000000; // 1 billion
+			this.items.forEach(item => {
+				this.$root.wallet -= item.quantity * item.price;
+			});
+		}
 	}
 }
 </script>
