@@ -1,25 +1,27 @@
 <template>
-<div id="app">
-  <div class="header">
-    <router-link to="/">
-      <div class="logo">
-        <p>{{$root.wallet}}</p>
+  <div id="app">
+    <div class="header">
+
+      <div class="title">
+        <h1>Spend A Billion Dollars</h1>
       </div>
-    </router-link>
-    <div class="title">
-      <h1>Spend A Billion Dollars</h1>
+      <router-link to="/">
+        <div class="logo">
+          <p><strong>${{$root.wallet}}</strong></p>
+        </div>
+      </router-link>
+
+    </div>
+    <div class="content">
+      <router-view />
+    </div>
+    <div class="footer">
+      <router-link to="/admin">Admin</router-link>
+      <br>
+      <hr>
+      <a href="https://github.com/Epic-Doughnut/creative-project-4">GitHub</a>
     </div>
   </div>
-  <div class="content">
-    <router-view />
-  </div>
-  <div class="footer">
-    <router-link to="/admin">Admin</router-link>
-    <br>
-    <hr>
-    <a href="https://github.com/Epic-Doughnut/creative-project-4">GitHub</a>
-  </div>
-</div>
 </template>
 
 <style>
@@ -30,17 +32,32 @@ html {
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
-  background: #fff;
+  background: #111D13;
+  color: #A1CCA5;
   padding: 0px;
   margin: 0px;
 }
 
+.logo{
+  font-size: 24px;
+  color: #111D13;
+  background-color: #DE9151;
+  text-align: right;
+  float: right;
+  width: 20vw;
+  margin: 10px;
+  /*display: flex;*/
+}
 /* Header */
 .header {
   display: flex;
   padding: 10px 100px 0px 100px;
-  background-color: #5BDEFF;
-  color: #1C454F;
+  background-color: #415D43;
+  color: #A1CCA5;
+  justify-content: space-evenly;
+  position: sticky;
+  top:0;
+  /*width: 100vw;*/
 }
 
 .title {
@@ -52,6 +69,7 @@ body {
 }
 
 .content {
+  /*margin-top: 100px;*/
   padding: 20px 100px;
   min-height: 500px;
 }

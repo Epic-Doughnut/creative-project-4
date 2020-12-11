@@ -16,6 +16,7 @@
 <style scoped>
 .image h2 {
   font-style: italic;
+  font-size: 20px;
 }
 
 /* Masonry */
